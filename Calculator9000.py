@@ -45,7 +45,10 @@ def calc(key):
                 messagebox.showerror('Ошибка','Проверьте правильность данных')
 #функционал кнопок
     elif key == 'Del':
-        entry.delete(len(entry.get())-1)
+        if ("=" in entry.get()):
+            entry.delete(0,END)
+        else:
+            entry.delete(len(entry.get())-1)
     elif key == "+\-":
         if "=" in entry.get():
             entry.delete(0,END)
@@ -71,6 +74,7 @@ def calc(key):
 #ошибка
 #точка ставиться после знаков оперций
 #попробовать регулярные выражения
+    elif key == '.':
         text = entry.get()
         if len(text) == 0:
             entry.insert(END, '0')
@@ -81,10 +85,9 @@ def calc(key):
         else:
             rtext = text[pt+1:]
             rtext = rtext[::-1]
-            print(rtext)
             for i in range(1,len(rtext)):
-                if (rtext[i-1] in str2):
-                    if (rtext[i] in '0123456789'):
+                if (rtext[i] in str2):
+                    if (rtext[i-1] in '0123456789'):
                         entry.insert(END,'.')
                         return
                     else:
